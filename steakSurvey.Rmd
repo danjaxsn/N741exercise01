@@ -1,0 +1,38 @@
+---
+title: "Steak Survey"
+author: "Melinda Higgins"
+date: "January 23, 2018"
+output: html_document
+---
+
+```{r setup, echo=FALSE, message=FALSE}
+knitr::opts_chunk$set(echo = FALSE)
+knitr::opts_chunk$set(message = FALSE)
+
+library(fivethirtyeight)
+library(tidyverse)
+
+data("steak_survey", package="fivethirtyeight")
+
+sdat <- na.omit(steak_survey) %>%
+  filter(region=="Mountain")
+```
+
+## Summary of Steak Survey - Mountain Region
+
+```{r}
+sdat %>%
+  select(age, female, educ, steak_prep) %>%
+  summary()
+```
+
+## Plot of Steak Preferences - Mountain Region
+
+```{r}
+ggplot(sdat, 
+       aes(x = steak_prep, fill = female)) + 
+  geom_bar(position="dodge") +
+  ggtitle(paste0("Steak Preparation Preference by Gender for ",
+                 "Mountain"," Region"))
+```
+
